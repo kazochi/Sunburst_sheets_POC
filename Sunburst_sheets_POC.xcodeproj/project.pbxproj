@@ -7,14 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C2130F5C2385D56200469CF7 /* SheetContentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */; };
+		C2144F5A2384555700FA55FA /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F592384555700FA55FA /* SheetViewController.swift */; };
+		C2144F5C2384559300FA55FA /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5B2384559300FA55FA /* SheetView.swift */; };
+		C2144F602384564200FA55FA /* DemoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5F2384564200FA55FA /* DemoTableViewController.swift */; };
+		C2144F622384AED300FA55FA /* SheetContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F612384AED300FA55FA /* SheetContentTableViewController.swift */; };
 		C27794412383302C007F9DE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794402383302C007F9DE3 /* AppDelegate.swift */; };
 		C27794432383302C007F9DE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794422383302C007F9DE3 /* ViewController.swift */; };
 		C27794462383302C007F9DE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27794442383302C007F9DE3 /* Main.storyboard */; };
 		C27794482383302E007F9DE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27794472383302E007F9DE3 /* Assets.xcassets */; };
 		C277944B2383302E007F9DE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27794492383302E007F9DE3 /* LaunchScreen.storyboard */; };
+		C27794532383331C007F9DE3 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794522383331C007F9DE3 /* ModalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentNavigationController.swift; sourceTree = "<group>"; };
+		C2144F592384555700FA55FA /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
+		C2144F5B2384559300FA55FA /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		C2144F5F2384564200FA55FA /* DemoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewController.swift; sourceTree = "<group>"; };
+		C2144F612384AED300FA55FA /* SheetContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentTableViewController.swift; sourceTree = "<group>"; };
 		C277943D2383302C007F9DE3 /* Sunburst_sheets_POC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunburst_sheets_POC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27794402383302C007F9DE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C27794422383302C007F9DE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +33,7 @@
 		C27794472383302E007F9DE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C277944A2383302E007F9DE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C277944C2383302E007F9DE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C27794522383331C007F9DE3 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +47,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C2144F582384553800FA55FA /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */,
+				C2144F592384555700FA55FA /* SheetViewController.swift */,
+				C2144F5B2384559300FA55FA /* SheetView.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
 		C27794342383302C007F9DE3 = {
 			isa = PBXGroup;
 			children = (
@@ -54,8 +76,12 @@
 		C277943F2383302C007F9DE3 /* Sunburst_sheets_POC */ = {
 			isa = PBXGroup;
 			children = (
+				C2144F582384553800FA55FA /* Sheets */,
 				C27794402383302C007F9DE3 /* AppDelegate.swift */,
+				C2144F5F2384564200FA55FA /* DemoTableViewController.swift */,
+				C2144F612384AED300FA55FA /* SheetContentTableViewController.swift */,
 				C27794422383302C007F9DE3 /* ViewController.swift */,
+				C27794522383331C007F9DE3 /* ModalViewController.swift */,
 				C27794442383302C007F9DE3 /* Main.storyboard */,
 				C27794472383302E007F9DE3 /* Assets.xcassets */,
 				C27794492383302E007F9DE3 /* LaunchScreen.storyboard */,
@@ -135,7 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2144F5A2384555700FA55FA /* SheetViewController.swift in Sources */,
 				C27794432383302C007F9DE3 /* ViewController.swift in Sources */,
+				C2144F602384564200FA55FA /* DemoTableViewController.swift in Sources */,
+				C2144F5C2384559300FA55FA /* SheetView.swift in Sources */,
+				C2130F5C2385D56200469CF7 /* SheetContentNavigationController.swift in Sources */,
+				C27794532383331C007F9DE3 /* ModalViewController.swift in Sources */,
+				C2144F622384AED300FA55FA /* SheetContentTableViewController.swift in Sources */,
 				C27794412383302C007F9DE3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
