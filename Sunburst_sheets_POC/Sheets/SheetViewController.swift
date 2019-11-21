@@ -8,40 +8,52 @@
 
 import UIKit
 
-protocol SheetViewContent {
-    
+protocol SheetViewControllerDelegate: AnyObject {
+    func sheetViewController(_ sheetViewController: SheetViewController, didUpdateSheetHeight: CGFloat)
 }
 
 
-enum SheetPosition : Int {
-    case full, partialMax, partialDefault, Collapsed, hidden
-}
-
-final class SheetViewController : UIViewController, SheetContentNavigationControllerDelegate {
+final class SheetViewController : UIViewController {
     let position: SheetPosition = .hidden
     let sheetView: SheetView
     var sheetViewTopConstraint: NSLayoutConstraint!
-    
-    private let childViewController: UIViewController
+    weak var delegate: SheetViewControllerDelegate?
+    private let panGestureRecognizer: UIPanGestureRecognizer
+    private let childViewController: SheetContentCustomizing
     private let passThroughView: PassThroughView
+    private var initialFrameOrigin: CGPoint = .zero
     
     
     init(childViewController: SheetContentNavigationController) {
         self.childViewController = childViewController
+        
         passThroughView = PassThroughView()
         sheetView = SheetView(contentView: childViewController.view)
+        panGestureRecognizer = UIPanGestureRecognizer()
         
         super.init(nibName: nil, bundle: nil)
         childViewController.sheetNavigationDelegate = self
+        
+        commonInit()
     }
     
-    init(childViewController: UIViewController) {
+    
+    init(childViewController: SheetContentCustomizing) {
         self.childViewController = childViewController
-        
         passThroughView = PassThroughView()
         sheetView = SheetView(contentView: childViewController.view)
-
+        panGestureRecognizer = UIPanGestureRecognizer()
+        
         super.init(nibName: nil, bundle: nil)
+        
+        commonInit()
+    }
+    
+    
+    private func commonInit() {
+        panGestureRecognizer.addTarget(self, action: #selector(handlePanning(gestureRecognizer:)))
+        sheetView.addGestureRecognizer(panGestureRecognizer)
+        sheetView.isUserInteractionEnabled = true
     }
     
     
@@ -51,12 +63,9 @@ final class SheetViewController : UIViewController, SheetContentNavigationContro
     
     
     override func loadView() {
-        // Set childViewController's view to sheet's content
-        
-        // Add the sheet view to the passThroughView
         addChild(childViewController)
         passThroughView.addSubview(sheetView)
-
+        
         view = passThroughView
     }
     
@@ -64,22 +73,16 @@ final class SheetViewController : UIViewController, SheetContentNavigationContro
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpConstraints()
-        sheetView.backgroundColor = .blue
     }
     
     
     private func setUpConstraints() {
         sheetView.translatesAutoresizingMaskIntoConstraints = false
-        sheetViewTopConstraint = sheetView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        sheetViewTopConstraint = view.bottomAnchor.constraint(equalTo: sheetView.topAnchor, constant: 0)
         
         NSLayoutConstraint.activate([sheetViewTopConstraint,
                                      sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                      sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     
@@ -93,7 +96,7 @@ final class SheetViewController : UIViewController, SheetContentNavigationContro
             parentVC.view.layoutIfNeeded()
             
             let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: {
-                self.sheetViewTopConstraint.constant = -300
+                self.sheetViewTopConstraint.constant = self.childViewController.sheetHeight
                 self.view.layoutIfNeeded()
             })
             animator.startAnimation()
@@ -101,6 +104,7 @@ final class SheetViewController : UIViewController, SheetContentNavigationContro
             didMove(toParent: parentVC)
         }
     }
+    
     
     func hide() {
         let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: {
@@ -112,43 +116,57 @@ final class SheetViewController : UIViewController, SheetContentNavigationContro
             self.removeFromParent()
         }
         animator.startAnimation()
+        delegate?.sheetViewController(self, didUpdateSheetHeight: 0)
     }
     
     
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: SheetContentCustomizing, animated: Bool) {
-        let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: {
-            self.sheetViewTopConstraint.constant = -viewController.sheetHeight
-            self.view.layoutIfNeeded()
-        })
-        animator.startAnimation()
-    }
-}
-
-
-extension UIView {
-    func setUpConstraintsToFitToParent() {
-        guard let superView = superview else {
+    @objc func handlePanning(gestureRecognizer: UIPanGestureRecognizer) {
+        guard let sheet = gestureRecognizer.view else {
             return
         }
-        NSLayoutConstraint.activate([topAnchor.constraint(equalTo: superView.topAnchor),
-                                     bottomAnchor.constraint(equalTo: superView.bottomAnchor),
-                                     leadingAnchor.constraint(equalTo: superView.leadingAnchor),
-                                     trailingAnchor.constraint(equalTo: superView.trailingAnchor)])
+        // 1. Hide if the view is below the threashold
+        // 2. Snap specific point
+        
+        // Get the changes in the X and Y directions relative to
+        // the superview's coordinate space.
+        let translation = gestureRecognizer.translation(in: sheet.superview)
+        if gestureRecognizer.state == .began {
+            // Save the view's original position.
+            self.initialFrameOrigin = sheet.frame.origin
+        }
+        
+        // Update the position for the .began, .changed, and .ended states
+        if gestureRecognizer.state != .cancelled {
+            // Add the X and Y translation to the view's original position.
+            let newFrameOrigin = CGPoint(x: initialFrameOrigin.x, y: initialFrameOrigin.y + translation.y)
+            sheet.frame.origin = newFrameOrigin
+            guard let parent = parent else {
+                return
+            }
+            let sheetHeight = parent.view.frame.size.height - newFrameOrigin.y
+            delegate?.sheetViewController(self, didUpdateSheetHeight: sheetHeight)
+        }
+        else {
+            // On cancellation, return the piece to its original location.
+            sheet.center = initialFrameOrigin
+        }
     }
 }
 
 
-final class PassThroughView: UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+extension SheetViewController : SheetContentNavigationControllerDelegate {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: SheetContentCustomizing, animated: Bool) {
+        // Intentionally empty
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let view = super.hitTest(point, with: event)
-        return view == self ? nil : view
+
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: SheetContentCustomizing, animated: Bool) {
+        view.layoutIfNeeded()
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.sheetViewTopConstraint.constant = viewController.sheetHeight
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            self.delegate?.sheetViewController(self, didUpdateSheetHeight: viewController.sheetHeight)
+        })
     }
 }

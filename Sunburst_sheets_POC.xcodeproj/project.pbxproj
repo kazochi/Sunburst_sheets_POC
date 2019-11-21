@@ -11,7 +11,6 @@
 		C2144F5A2384555700FA55FA /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F592384555700FA55FA /* SheetViewController.swift */; };
 		C2144F5C2384559300FA55FA /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5B2384559300FA55FA /* SheetView.swift */; };
 		C2144F602384564200FA55FA /* DemoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5F2384564200FA55FA /* DemoTableViewController.swift */; };
-		C2144F622384AED300FA55FA /* SheetContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F612384AED300FA55FA /* SheetContentTableViewController.swift */; };
 		C27794412383302C007F9DE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794402383302C007F9DE3 /* AppDelegate.swift */; };
 		C27794432383302C007F9DE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794422383302C007F9DE3 /* ViewController.swift */; };
 		C27794462383302C007F9DE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27794442383302C007F9DE3 /* Main.storyboard */; };
@@ -20,6 +19,12 @@
 		C27794532383331C007F9DE3 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794522383331C007F9DE3 /* ModalViewController.swift */; };
 		C28C38A92386EEE3006D23B4 /* BackgroundColorScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38A72386EEE3006D23B4 /* BackgroundColorScrollViewController.swift */; };
 		C28C38AA2386EEE3006D23B4 /* BackgroundColorScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C38A82386EEE3006D23B4 /* BackgroundColorScrollViewController.xib */; };
+		C28C38AC23873348006D23B4 /* SheetContentCustomizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38AB23873348006D23B4 /* SheetContentCustomizing.swift */; };
+		C28C38AE23873380006D23B4 /* SheetPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38AD23873380006D23B4 /* SheetPosition.swift */; };
+		C28C38B023873441006D23B4 /* NavigationControllerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38AF23873441006D23B4 /* NavigationControllerDelegateProxy.swift */; };
+		C28C38B223873485006D23B4 /* PassThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38B123873485006D23B4 /* PassThroughView.swift */; };
+		C28C38B4238739C8006D23B4 /* GrabberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38B3238739C8006D23B4 /* GrabberView.swift */; };
+		C28C38B623873BF2006D23B4 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38B523873BF2006D23B4 /* UIView+AutoLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +32,6 @@
 		C2144F592384555700FA55FA /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 		C2144F5B2384559300FA55FA /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		C2144F5F2384564200FA55FA /* DemoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewController.swift; sourceTree = "<group>"; };
-		C2144F612384AED300FA55FA /* SheetContentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentTableViewController.swift; sourceTree = "<group>"; };
 		C277943D2383302C007F9DE3 /* Sunburst_sheets_POC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunburst_sheets_POC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27794402383302C007F9DE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C27794422383302C007F9DE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +42,12 @@
 		C27794522383331C007F9DE3 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		C28C38A72386EEE3006D23B4 /* BackgroundColorScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorScrollViewController.swift; sourceTree = "<group>"; };
 		C28C38A82386EEE3006D23B4 /* BackgroundColorScrollViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackgroundColorScrollViewController.xib; sourceTree = "<group>"; };
+		C28C38AB23873348006D23B4 /* SheetContentCustomizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentCustomizing.swift; sourceTree = "<group>"; };
+		C28C38AD23873380006D23B4 /* SheetPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetPosition.swift; sourceTree = "<group>"; };
+		C28C38AF23873441006D23B4 /* NavigationControllerDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegateProxy.swift; sourceTree = "<group>"; };
+		C28C38B123873485006D23B4 /* PassThroughView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassThroughView.swift; sourceTree = "<group>"; };
+		C28C38B3238739C8006D23B4 /* GrabberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabberView.swift; sourceTree = "<group>"; };
+		C28C38B523873BF2006D23B4 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +65,14 @@
 			isa = PBXGroup;
 			children = (
 				C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */,
+				C28C38AD23873380006D23B4 /* SheetPosition.swift */,
 				C2144F592384555700FA55FA /* SheetViewController.swift */,
+				C28C38B123873485006D23B4 /* PassThroughView.swift */,
+				C28C38AF23873441006D23B4 /* NavigationControllerDelegateProxy.swift */,
+				C28C38AB23873348006D23B4 /* SheetContentCustomizing.swift */,
 				C2144F5B2384559300FA55FA /* SheetView.swift */,
+				C28C38B3238739C8006D23B4 /* GrabberView.swift */,
+				C28C38B523873BF2006D23B4 /* UIView+AutoLayout.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -83,7 +99,6 @@
 				C2144F582384553800FA55FA /* Sheets */,
 				C27794402383302C007F9DE3 /* AppDelegate.swift */,
 				C2144F5F2384564200FA55FA /* DemoTableViewController.swift */,
-				C2144F612384AED300FA55FA /* SheetContentTableViewController.swift */,
 				C28C38A72386EEE3006D23B4 /* BackgroundColorScrollViewController.swift */,
 				C28C38A82386EEE3006D23B4 /* BackgroundColorScrollViewController.xib */,
 				C27794422383302C007F9DE3 /* ViewController.swift */,
@@ -171,11 +186,16 @@
 				C2144F5A2384555700FA55FA /* SheetViewController.swift in Sources */,
 				C27794432383302C007F9DE3 /* ViewController.swift in Sources */,
 				C2144F602384564200FA55FA /* DemoTableViewController.swift in Sources */,
+				C28C38B023873441006D23B4 /* NavigationControllerDelegateProxy.swift in Sources */,
 				C2144F5C2384559300FA55FA /* SheetView.swift in Sources */,
+				C28C38B223873485006D23B4 /* PassThroughView.swift in Sources */,
 				C2130F5C2385D56200469CF7 /* SheetContentNavigationController.swift in Sources */,
 				C27794532383331C007F9DE3 /* ModalViewController.swift in Sources */,
+				C28C38B4238739C8006D23B4 /* GrabberView.swift in Sources */,
 				C28C38A92386EEE3006D23B4 /* BackgroundColorScrollViewController.swift in Sources */,
-				C2144F622384AED300FA55FA /* SheetContentTableViewController.swift in Sources */,
+				C28C38B623873BF2006D23B4 /* UIView+AutoLayout.swift in Sources */,
+				C28C38AE23873380006D23B4 /* SheetPosition.swift in Sources */,
+				C28C38AC23873348006D23B4 /* SheetContentCustomizing.swift in Sources */,
 				C27794412383302C007F9DE3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,7 @@
 import UIKit
 
 class DemoTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    private var sheetViewController: SheetViewController?
+    private var sheetViewController: SheetViewController!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,7 +22,7 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
         sheetViewController = SheetViewController(childViewController: navigationController)
-        sheetViewController?.loadViewIfNeeded()
+        sheetViewController.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,7 +31,7 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 30
     }
 
     
@@ -50,5 +50,13 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
             sheetViewController?.hide()
         }
         tableView.reloadData()
+    }
+}
+
+
+extension DemoTableViewController : SheetViewControllerDelegate {
+    func sheetViewController(_ sheetViewController: SheetViewController, didUpdateSheetHeight sheetHeight: CGFloat) {
+        tableView.contentInset.bottom = sheetHeight
+        tableView.scrollIndicatorInsets.bottom = sheetHeight
     }
 }
