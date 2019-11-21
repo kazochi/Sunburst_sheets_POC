@@ -10,6 +10,7 @@ import UIKit
 
 protocol SheetContentCustomizing: UIViewController {
     var sheetHeight: CGFloat { get set }
+    var backgroundColor: UIColor { get set }
 }
 
 protocol SheetContentNavigationControllerDelegate : class {
@@ -19,9 +20,7 @@ protocol SheetContentNavigationControllerDelegate : class {
 }
 
 class SheetContentNavigationController: UINavigationController {
-
-    private var externalDelegate: UINavigationControllerDelegate?
-    weak var sheetNavigationDelegate: SheetContentNavigationControllerDelegate?
+    private let delegateProxy = NavigationControllerDelegateProxy()
     
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 //        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -45,10 +44,22 @@ class SheetContentNavigationController: UINavigationController {
     
     override var delegate: UINavigationControllerDelegate? {
         get {
-            return self
+            return delegateProxy
         }
+        
         set {
-            externalDelegate = newValue
+            delegateProxy.proxiedDelegate = newValue
+        }
+    }
+    
+    
+    weak var sheetNavigationDelegate: SheetContentNavigationControllerDelegate? {
+        get {
+            return delegateProxy.forwardingDelegate
+        }
+        
+        set {
+            delegateProxy.forwardingDelegate = newValue
         }
     }
     
@@ -57,41 +68,43 @@ class SheetContentNavigationController: UINavigationController {
 //    }
 }
 
-
-extension SheetContentNavigationController : UINavigationControllerDelegate {
+final class NavigationControllerDelegateProxy : NSObject, UINavigationControllerDelegate {
+    weak var proxiedDelegate: UINavigationControllerDelegate?
+    weak var forwardingDelegate: SheetContentNavigationControllerDelegate?
+    
     
     func navigationController(_ navigationController: UINavigationController,
                               willShow viewController: UIViewController,
                               animated: Bool) {
-        externalDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
+        // Do something
+        proxiedDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
     }
     
     
     func navigationController(_ navigationController: UINavigationController,
                               didShow viewController: UIViewController,
                               animated: Bool) {
-        if let sheetContentCustmizing = viewController as? SheetContentCustomizing {
-            sheetNavigationDelegate?.navigationController(navigationController, didShow: sheetContentCustmizing, animated: animated)
+        if let sheetContentCustomizing = viewController as? SheetContentCustomizing {
+            forwardingDelegate?.navigationController(navigationController, didShow: sheetContentCustomizing, animated: animated)
         }
         
-        externalDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
+        proxiedDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
     }
     
     
     func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
-        return externalDelegate?.navigationControllerSupportedInterfaceOrientations?(navigationController) ?? .all
+        return proxiedDelegate?.navigationControllerSupportedInterfaceOrientations?(navigationController) ?? .all
     }
     
     
     func navigationControllerPreferredInterfaceOrientationForPresentation(_ navigationController: UINavigationController) -> UIInterfaceOrientation {
-        return externalDelegate?.navigationControllerPreferredInterfaceOrientationForPresentation?(navigationController) ?? .unknown
+        return proxiedDelegate?.navigationControllerPreferredInterfaceOrientationForPresentation?(navigationController) ?? .unknown
     }
     
     
     func navigationController(_ navigationController: UINavigationController,
                               interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        
-        return externalDelegate?.navigationController?(navigationController, interactionControllerFor: animationController)
+        return proxiedDelegate?.navigationController?(navigationController, interactionControllerFor: animationController)
     }
     
     
@@ -99,7 +112,52 @@ extension SheetContentNavigationController : UINavigationControllerDelegate {
                               animationControllerFor operation: UINavigationController.Operation,
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-
-        return externalDelegate?.navigationController?(navigationController, animationControllerFor: operation, from: fromVC, to: toVC)
+        return proxiedDelegate?.navigationController?(navigationController, animationControllerFor: operation, from: fromVC, to: toVC)
     }
 }
+
+//extension SheetContentNavigationController : UINavigationControllerDelegate {
+//
+//    func navigationController(_ navigationController: UINavigationController,
+//                              willShow viewController: UIViewController,
+//                              animated: Bool) {
+//        externalDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
+//    }
+//
+//
+//    func navigationController(_ navigationController: UINavigationController,
+//                              didShow viewController: UIViewController,
+//                              animated: Bool) {
+//        if let sheetContentCustmizing = viewController as? SheetContentCustomizing {
+//            sheetNavigationDelegate?.navigationController(navigationController, didShow: sheetContentCustmizing, animated: animated)
+//        }
+//
+//        externalDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
+//    }
+//
+//
+//    func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
+//        return externalDelegate?.navigationControllerSupportedInterfaceOrientations?(navigationController) ?? .all
+//    }
+//
+//
+//    func navigationControllerPreferredInterfaceOrientationForPresentation(_ navigationController: UINavigationController) -> UIInterfaceOrientation {
+//        return externalDelegate?.navigationControllerPreferredInterfaceOrientationForPresentation?(navigationController) ?? .unknown
+//    }
+//
+//
+//    func navigationController(_ navigationController: UINavigationController,
+//                              interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//
+//        return externalDelegate?.navigationController?(navigationController, interactionControllerFor: animationController)
+//    }
+//
+//
+//    func navigationController(_ navigationController: UINavigationController,
+//                              animationControllerFor operation: UINavigationController.Operation,
+//                              from fromVC: UIViewController,
+//                              to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//
+//        return externalDelegate?.navigationController?(navigationController, animationControllerFor: operation, from: fromVC, to: toVC)
+//    }
+//}

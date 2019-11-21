@@ -9,6 +9,8 @@
 import UIKit
 
 class SheetContentTableViewController: UITableViewController, SheetContentCustomizing {
+    var backgroundColor: UIColor = .white
+    
     var sheetHeight: CGFloat = 300
     
     override func viewDidLoad() {

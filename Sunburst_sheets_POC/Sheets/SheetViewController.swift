@@ -83,26 +83,40 @@ final class SheetViewController : UIViewController, SheetContentNavigationContro
     }
     
     
-    func addSheet(toParent parent: UIViewController) {
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        parent.addChild(self)
-        parent.view.addSubview(view)
-        view.setUpConstraintsToFitToParent()
-        parent.view.setNeedsLayout()
-        parent.view.layoutIfNeeded()
-
-        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear, animations: {
-            self.sheetViewTopConstraint.constant = -300
+    func addSheet(toParent parentVC: UIViewController) {
+        if parent == nil {
+            self.view.translatesAutoresizingMaskIntoConstraints = false
+            parentVC.addChild(self)
+            parentVC.view.addSubview(view)
+            view.setUpConstraintsToFitToParent()
+            parentVC.view.setNeedsLayout()
+            parentVC.view.layoutIfNeeded()
+            
+            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: {
+                self.sheetViewTopConstraint.constant = -300
+                self.view.layoutIfNeeded()
+            })
+            animator.startAnimation()
+            
+            didMove(toParent: parentVC)
+        }
+    }
+    
+    func hide() {
+        let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: {
+            self.sheetViewTopConstraint.constant = 0
             self.view.layoutIfNeeded()
         })
+        animator.addCompletion { _ in
+            self.view.removeFromSuperview()
+            self.removeFromParent()
+        }
         animator.startAnimation()
-        
-        didMove(toParent: parent)
     }
     
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: SheetContentCustomizing, animated: Bool) {
-        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .linear, animations: {
+        let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: {
             self.sheetViewTopConstraint.constant = -viewController.sheetHeight
             self.view.layoutIfNeeded()
         })

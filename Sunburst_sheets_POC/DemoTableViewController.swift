@@ -18,7 +18,7 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
         title = "Cookbook Sheet Demo"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DemoTableViewControllerCell")
         
-        let childContentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SheetContentTableViewController") as! SheetContentTableViewController
+        let childContentViewController = BackgroundColorScrollViewController()
         
         let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
         sheetViewController = SheetViewController(childViewController: navigationController)
@@ -38,12 +38,17 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewControllerCell")!
         
-        cell.textLabel?.text = "Show sheet"
+        cell.textLabel?.text = "Toggle sheet"
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        sheetViewController?.addSheet(toParent: self)
+        if sheetViewController?.parent == nil {
+            sheetViewController?.addSheet(toParent: self)
+        } else {
+            sheetViewController?.hide()
+        }
+        tableView.reloadData()
     }
 }
