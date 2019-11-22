@@ -9,7 +9,7 @@
 import UIKit
 
 final class BackgroundColorScrollViewController: UIViewController, SheetContentCustomizing {
-    let sheetHeight: CGFloat = CGFloat(Int.random(in: 300...800))
+    let sheetHeight: CGFloat = CGFloat(Int.random(in: 300...600))
     @IBOutlet var colorView: UIView!
     
     override func viewDidLoad() {

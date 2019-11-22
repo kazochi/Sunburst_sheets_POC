@@ -37,8 +37,11 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewControllerCell")!
-        
-        cell.textLabel?.text = "Toggle sheet"
+        if indexPath.row == 0 {
+            cell.textLabel?.text = "Toggle sheet"
+        } else {
+            cell.textLabel?.text = "\(indexPath.row)"
+        }
         return cell
     }
     
@@ -56,7 +59,8 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
 extension DemoTableViewController : SheetViewControllerDelegate {
     func sheetViewController(_ sheetViewController: SheetViewController, didUpdateSheetHeight sheetHeight: CGFloat) {
-        tableView.contentInset.bottom = sheetHeight
-        tableView.scrollIndicatorInsets.bottom = sheetHeight
+        let contentInsetBottom = sheetHeight - view.safeAreaInsets.bottom
+        tableView.contentInset.bottom = contentInsetBottom
+        tableView.scrollIndicatorInsets.bottom = contentInsetBottom
     }
 }
