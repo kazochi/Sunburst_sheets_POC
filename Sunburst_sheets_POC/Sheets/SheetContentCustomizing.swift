@@ -9,5 +9,5 @@
 import UIKit
 
 protocol SheetContentCustomizing : UIViewController {
-    var sheetHeight: CGFloat { get }
+    var sheetBehavior: SheetBehavior { get }
 }

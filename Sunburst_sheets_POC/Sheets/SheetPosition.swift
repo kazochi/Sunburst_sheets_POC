@@ -8,27 +8,45 @@
 
 import UIKit
 
-enum SheetPosition : Int {
+enum SheetPosition : Int, CustomStringConvertible {
     case full
     case partialMax
     case partialDefault
     case hidden
-}
-
-
-struct SheetPositionHeightRatio: RawRepresentable, Hashable {
-    var rawValue: CGFloat
     
-    init(rawValue: SheetPositionHeightRatio.RawValue) {
-        assert(rawValue >= 0, "rawValue must be value between 0 to 1")
-        assert(rawValue <= 1, "rawValue must be value between 0 to 1")
-        self.rawValue = rawValue
+    static var allCases: Set<SheetPosition> {
+        return [.full, .partialMax, .partialDefault, .hidden]
     }
     
-    static let full = SheetPositionHeightRatio(rawValue: 1)
-    static let partialMax = SheetPositionHeightRatio(rawValue: 0.8)
-    static let partialDefault = SheetPositionHeightRatio(rawValue: 1)
-    static let hidden = SheetPositionHeightRatio(rawValue: 0)
+    private var sortedCases: [SheetPosition] {
+        return [.hidden, .partialDefault, .partialMax, .full]
+    }
+    
+    var next: SheetPosition? {
+        guard let currentIndex = sortedCases.firstIndex(of: self), currentIndex+1 < sortedCases.count else {
+            return nil
+        }
+        return sortedCases[currentIndex+1]
+    }
+    
+    var previous: SheetPosition? {
+        guard let currentIndex = sortedCases.firstIndex(of: self), currentIndex-1 >= 0 else {
+            return nil
+        }
+        return sortedCases[currentIndex-1]
+    }
+    
+    var description: String {
+        switch self {
+        case .full:
+            return "full"
+        case .partialMax:
+            return "partialMax"
+        case .partialDefault:
+            return "partialDefault"
+        case .hidden:
+            return "hidden"
+        }
+    }
 }
-
 

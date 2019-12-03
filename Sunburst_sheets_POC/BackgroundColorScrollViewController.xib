@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BackgroundColorScrollViewController" customModule="Sunburst_sheets_POC" customModuleProvider="target">
             <connections>
                 <outlet property="colorView" destination="ccG-YN-erv" id="yAt-3M-uJz"/>
+                <outlet property="scrollView" destination="n9X-94-INI" id="4Qt-df-4cR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,8 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n9X-94-INI">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9X-94-INI">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lEw-5K-BSi">
                             <rect key="frame" x="157" y="59" width="100" height="130"/>
@@ -55,12 +55,14 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="n9X-94-INI" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="0aI-sh-KDu"/>
-                <constraint firstItem="n9X-94-INI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="33w-wr-QKB"/>
-                <constraint firstItem="n9X-94-INI" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="3Pl-Ad-hvy"/>
-                <constraint firstItem="n9X-94-INI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="eJ3-nz-vyB"/>
+                <constraint firstItem="n9X-94-INI" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="0aI-sh-KDu"/>
+                <constraint firstItem="n9X-94-INI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="33w-wr-QKB"/>
+                <constraint firstItem="n9X-94-INI" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="3Pl-Ad-hvy"/>
+                <constraint firstItem="n9X-94-INI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eJ3-nz-vyB"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-923" y="7"/>
         </view>
     </objects>

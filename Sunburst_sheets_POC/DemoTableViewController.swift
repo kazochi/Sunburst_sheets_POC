@@ -17,12 +17,6 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         title = "Cookbook Sheet Demo"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DemoTableViewControllerCell")
-        
-        let childContentViewController = BackgroundColorScrollViewController()
-        
-        let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
-        sheetViewController = SheetViewController(childViewController: navigationController)
-        sheetViewController.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,9 +31,14 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewControllerCell")!
-        if indexPath.row == 0 {
+        switch indexPath.row {
+        case 0:
             cell.textLabel?.text = "Toggle sheet"
-        } else {
+        case 1:
+            cell.textLabel?.text = "Toggle table view sheet"
+        case 2:
+            cell.textLabel?.text = "set sheet height to 500"
+        default:
             cell.textLabel?.text = "\(indexPath.row)"
         }
         return cell
@@ -47,12 +46,38 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if sheetViewController?.parent == nil {
-            sheetViewController?.addSheet(toParent: self)
-        } else {
-            sheetViewController?.hide()
+        switch indexPath.row {
+        case 0:
+            if sheetViewController?.parent == nil {
+                let childContentViewController = BackgroundColorScrollViewController()
+                
+                let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
+                sheetViewController = SheetViewController(contentViewController: navigationController)
+                sheetViewController.delegate = self
+                sheetViewController?.add(toParent: self, animated: true)
+                sheetViewController.track(scrollView: childContentViewController.scrollView)
+            } else {
+                sheetViewController?.removeFromParent(animated: true)
+            }
+        case 1:
+            if sheetViewController?.parent == nil {
+                let childContentViewController = SheetContentTableTableViewController()
+                
+                let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
+                sheetViewController = SheetViewController(contentViewController: navigationController)
+                sheetViewController.delegate = self
+                sheetViewController?.add(toParent: self, animated: true)
+                sheetViewController.track(scrollView: childContentViewController.tableView)
+            } else {
+                sheetViewController?.removeFromParent(animated: true)
+            }
+        case 2:
+            if sheetViewController?.parent != nil {
+                sheetViewController.update(sheetHeight: 500)
+            }
+        default:
+            ()
         }
-        tableView.reloadData()
     }
 }
 

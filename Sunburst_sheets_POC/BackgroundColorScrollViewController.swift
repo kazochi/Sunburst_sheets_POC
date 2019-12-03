@@ -9,13 +9,15 @@
 import UIKit
 
 final class BackgroundColorScrollViewController: UIViewController, SheetContentCustomizing {
-    let sheetHeight: CGFloat = CGFloat(Int.random(in: 300...600))
+    let sheetBehavior: SheetBehavior = ScrollAndSnapSheetBehavior.makePartialMaxScrollAndSnapBehavior()
+
     @IBOutlet var colorView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Sheet Height \(sheetHeight)"
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

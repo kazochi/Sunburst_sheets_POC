@@ -52,10 +52,11 @@ class SheetContentNavigationController: UINavigationController {
 
 
 extension SheetContentNavigationController : SheetContentCustomizing {
-    var sheetHeight: CGFloat {
+    var sheetBehavior: SheetBehavior {
         guard let topViewController = topViewController as? SheetContentCustomizing else {
-            return 0
+            // TODO:
+            return ScrollAndSnapSheetBehavior.makeFullScrollAndSnapBehavior()
         }
-        return topViewController.sheetHeight
+        return topViewController.sheetBehavior
     }
 }
