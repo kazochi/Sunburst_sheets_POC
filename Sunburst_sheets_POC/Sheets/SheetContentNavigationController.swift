@@ -54,8 +54,11 @@ class SheetContentNavigationController: UINavigationController {
 extension SheetContentNavigationController : SheetContentCustomizing {
     var sheetBehavior: SheetBehavior {
         guard let topViewController = topViewController as? SheetContentCustomizing else {
-            // TODO:
-            return ScrollAndSnapSheetBehavior.makeFullScrollAndSnapBehavior()
+            // FIXME:
+            return SheetBehavior.panAndSnapPartialMaxSheetBehavior(initialPosition: .partialDefault,
+                                                                   partialMaxTopInset: 64.0,
+                                                                   partialDefaultTopIOnset: 462.0,
+                                                                   offScreen: nil)
         }
         return topViewController.sheetBehavior
     }

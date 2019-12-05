@@ -8,18 +8,23 @@
 
 import UIKit
 
+enum SheetPositionDirection : Int {
+    case up
+    case down
+}
+
 enum SheetPosition : Int, CustomStringConvertible {
     case full
     case partialMax
     case partialDefault
-    case hidden
+    case offScreen
     
     static var allCases: Set<SheetPosition> {
-        return [.full, .partialMax, .partialDefault, .hidden]
+        return [.full, .partialMax, .partialDefault, .offScreen]
     }
     
     private var sortedCases: [SheetPosition] {
-        return [.hidden, .partialDefault, .partialMax, .full]
+        return [.offScreen, .partialDefault, .partialMax, .full]
     }
     
     var next: SheetPosition? {
@@ -44,8 +49,8 @@ enum SheetPosition : Int, CustomStringConvertible {
             return "partialMax"
         case .partialDefault:
             return "partialDefault"
-        case .hidden:
-            return "hidden"
+        case .offScreen:
+            return "offScreen"
         }
     }
 }

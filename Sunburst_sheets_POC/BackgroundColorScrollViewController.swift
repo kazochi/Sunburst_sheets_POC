@@ -9,7 +9,7 @@
 import UIKit
 
 final class BackgroundColorScrollViewController: UIViewController, SheetContentCustomizing {
-    let sheetBehavior: SheetBehavior = ScrollAndSnapSheetBehavior.makePartialMaxScrollAndSnapBehavior()
+    let sheetBehavior: SheetBehavior = SheetBehavior.fullOrDismissed
 
     @IBOutlet var colorView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!

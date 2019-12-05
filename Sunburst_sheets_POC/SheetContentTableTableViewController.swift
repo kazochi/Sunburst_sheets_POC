@@ -9,17 +9,14 @@
 import UIKit
 
 class SheetContentTableTableViewController: UITableViewController, SheetContentCustomizing {
-    let sheetBehavior: SheetBehavior = ScrollAndSnapSheetBehavior.makeFullScrollAndSnapBehavior()
-
+    let sheetBehavior: SheetBehavior = SheetBehavior.panAndSnapPartialMaxSheetBehavior(initialPosition: .partialDefault,
+                                                                                       partialMaxTopInset: 64.0,
+                                                                                       partialDefaultTopIOnset: 462.0,
+                                                                                       offScreen: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "tableView Sheet"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SheetContentTableTableViewControllerCell")
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source

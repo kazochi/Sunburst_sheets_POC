@@ -9,7 +9,7 @@
 import UIKit
 
 class DemoTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    private var sheetViewController: SheetViewController!
+    private var sheetViewController: SheetController!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,11 +33,13 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "DemoTableViewControllerCell")!
         switch indexPath.row {
         case 0:
-            cell.textLabel?.text = "Toggle sheet"
+            cell.textLabel?.text = "Toggle sheet (Full or dismiss)"
         case 1:
-            cell.textLabel?.text = "Toggle table view sheet"
+            cell.textLabel?.text = "Toggle table view sheet (Snap)"
         case 2:
             cell.textLabel?.text = "set sheet height to 500"
+        case 3:
+            cell.textLabel?.text = "Action sheet"
         default:
             cell.textLabel?.text = "\(indexPath.row)"
         }
@@ -52,7 +54,7 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 let childContentViewController = BackgroundColorScrollViewController()
                 
                 let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
-                sheetViewController = SheetViewController(contentViewController: navigationController)
+                sheetViewController = SheetController(contentViewController: navigationController)
                 sheetViewController.delegate = self
                 sheetViewController?.add(toParent: self, animated: true)
                 sheetViewController.track(scrollView: childContentViewController.scrollView)
@@ -64,7 +66,7 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 let childContentViewController = SheetContentTableTableViewController()
                 
                 let navigationController = SheetContentNavigationController(rootViewController: childContentViewController)
-                sheetViewController = SheetViewController(contentViewController: navigationController)
+                sheetViewController = SheetController(contentViewController: navigationController)
                 sheetViewController.delegate = self
                 sheetViewController?.add(toParent: self, animated: true)
                 sheetViewController.track(scrollView: childContentViewController.tableView)
@@ -75,6 +77,11 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
             if sheetViewController?.parent != nil {
                 sheetViewController.update(sheetHeight: 500)
             }
+        case 3:
+            let childContentViewController = SheetContentTableTableViewController()
+            let sheetViewController = SheetController(contentViewController: childContentViewController)
+            sheetViewController.modalPresentationStyle = .custom
+            present(sheetViewController, animated: true, completion: nil)
         default:
             ()
         }
@@ -83,9 +90,13 @@ class DemoTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
 
 extension DemoTableViewController : SheetViewControllerDelegate {
-    func sheetViewController(_ sheetViewController: SheetViewController, didUpdateSheetHeight sheetHeight: CGFloat) {
+    func sheetViewController(_ sheetViewController: SheetController, didUpdateSheetHeight sheetHeight: CGFloat, sheetPosition: SheetPosition) {
         let contentInsetBottom = sheetHeight - view.safeAreaInsets.bottom
         tableView.contentInset.bottom = contentInsetBottom
         tableView.scrollIndicatorInsets.bottom = contentInsetBottom
+        
+        let hideNavigationBar = (sheetPosition == .full || sheetPosition == .partialMax)
+        navigationController?.setNavigationBarHidden(hideNavigationBar, animated: true)
+        title = sheetPosition.description
     }
 }

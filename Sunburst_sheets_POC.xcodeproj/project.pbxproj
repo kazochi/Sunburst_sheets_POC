@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C206FB782395DEEF0039BF7F /* SheetBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = C206FB772395DEEF0039BF7F /* SheetBehavior.swift */; };
+		C206FB7A23988AAA0039BF7F /* SheetTransitioningDelegatre.swift in Sources */ = {isa = PBXBuildFile; fileRef = C206FB7923988AAA0039BF7F /* SheetTransitioningDelegatre.swift */; };
 		C2130F5C2385D56200469CF7 /* SheetContentNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */; };
-		C2144F5A2384555700FA55FA /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F592384555700FA55FA /* SheetViewController.swift */; };
+		C2144F5A2384555700FA55FA /* SheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F592384555700FA55FA /* SheetController.swift */; };
 		C2144F5C2384559300FA55FA /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5B2384559300FA55FA /* SheetView.swift */; };
 		C2144F602384564200FA55FA /* DemoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5F2384564200FA55FA /* DemoTableViewController.swift */; };
 		C27794412383302C007F9DE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794402383302C007F9DE3 /* AppDelegate.swift */; };
@@ -32,8 +33,9 @@
 
 /* Begin PBXFileReference section */
 		C206FB772395DEEF0039BF7F /* SheetBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetBehavior.swift; sourceTree = "<group>"; };
+		C206FB7923988AAA0039BF7F /* SheetTransitioningDelegatre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetTransitioningDelegatre.swift; sourceTree = "<group>"; };
 		C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentNavigationController.swift; sourceTree = "<group>"; };
-		C2144F592384555700FA55FA /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
+		C2144F592384555700FA55FA /* SheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetController.swift; sourceTree = "<group>"; };
 		C2144F5B2384559300FA55FA /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		C2144F5F2384564200FA55FA /* DemoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewController.swift; sourceTree = "<group>"; };
 		C277943D2383302C007F9DE3 /* Sunburst_sheets_POC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunburst_sheets_POC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,7 +75,8 @@
 				C2130F5B2385D56200469CF7 /* SheetContentNavigationController.swift */,
 				C28C38AD23873380006D23B4 /* SheetPosition.swift */,
 				C206FB772395DEEF0039BF7F /* SheetBehavior.swift */,
-				C2144F592384555700FA55FA /* SheetViewController.swift */,
+				C2144F592384555700FA55FA /* SheetController.swift */,
+				C206FB7923988AAA0039BF7F /* SheetTransitioningDelegatre.swift */,
 				C28C38B123873485006D23B4 /* PassThroughView.swift */,
 				C28C38AF23873441006D23B4 /* NavigationControllerDelegateProxy.swift */,
 				C28C38AB23873348006D23B4 /* SheetContentCustomizing.swift */,
@@ -193,11 +196,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2144F5A2384555700FA55FA /* SheetViewController.swift in Sources */,
+				C2144F5A2384555700FA55FA /* SheetController.swift in Sources */,
 				C27794432383302C007F9DE3 /* ViewController.swift in Sources */,
 				C2144F602384564200FA55FA /* DemoTableViewController.swift in Sources */,
 				C28C38B023873441006D23B4 /* NavigationControllerDelegateProxy.swift in Sources */,
 				C2144F5C2384559300FA55FA /* SheetView.swift in Sources */,
+				C206FB7A23988AAA0039BF7F /* SheetTransitioningDelegatre.swift in Sources */,
 				C28C38B223873485006D23B4 /* PassThroughView.swift in Sources */,
 				C2130F5C2385D56200469CF7 /* SheetContentNavigationController.swift in Sources */,
 				C206FB782395DEEF0039BF7F /* SheetBehavior.swift in Sources */,

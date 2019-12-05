@@ -1,5 +1,5 @@
 //
-//  SheetViewController.swift
+//  SheetController.swift
 //  Sunburst_sheets_POC
 //
 //  Created by Kazuhito Ochiai on 11/19/19.
@@ -9,51 +9,41 @@
 import UIKit
 
 protocol SheetViewControllerDelegate: AnyObject {
-    func sheetViewController(_ sheetViewController: SheetViewController, didUpdateSheetHeight: CGFloat)
+    func sheetViewController(_ sheetViewController: SheetController, didUpdateSheetHeight sheetHeight: CGFloat, sheetPosition: SheetPosition)
 }
 
 
-final class SheetViewController : UIViewController {
-    private(set) var currentPosition: SheetPosition = .hidden
+final class SheetController : UIViewController {
+    private(set) var currentPosition: SheetPosition = .offScreen
     let sheetView: SheetView
     var sheetViewTopConstraint: NSLayoutConstraint!
     weak var delegate: SheetViewControllerDelegate?
-    private let sheetPanGestureRecognizer: UIPanGestureRecognizer
-    private let contentViewController: SheetContentCustomizing
-    private let passThroughView: PassThroughView
+    let sheetPanGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer()
+    let contentViewController: SheetContentCustomizing
+    private let passThroughView: PassThroughView = PassThroughView()
     private var initialFrameOrigin: CGPoint = .zero
     private var initialContentOffset: CGFloat = 0
-    
-    init(contentViewController: SheetContentNavigationController) {
-        self.contentViewController = contentViewController
-        
-        passThroughView = PassThroughView()
-        sheetView = SheetView(contentView: contentViewController.view)
-        sheetPanGestureRecognizer = UIPanGestureRecognizer()
-        
-        super.init(nibName: nil, bundle: nil)
-        contentViewController.sheetNavigationDelegate = self
-        
-        commonInit()
-    }
-    
+    private let actionSheetTransitioningDelegate = SheetActionSheetTransitioningDelegate()
     
     init(contentViewController: SheetContentCustomizing) {
         self.contentViewController = contentViewController
-        passThroughView = PassThroughView()
         sheetView = SheetView(contentView: contentViewController.view)
-        sheetPanGestureRecognizer = UIPanGestureRecognizer()
         
         super.init(nibName: nil, bundle: nil)
-        
+
         commonInit()
     }
     
     
     private func commonInit() {
+        if let contentNavigationController = contentViewController as? SheetContentNavigationController {
+            contentNavigationController.sheetNavigationDelegate = self
+        }
+        
         sheetPanGestureRecognizer.addTarget(self, action: #selector(handlePanning(gestureRecognizer:)))
         sheetView.addGestureRecognizer(sheetPanGestureRecognizer)
         sheetView.isUserInteractionEnabled = true
+        transitioningDelegate = actionSheetTransitioningDelegate
     }
     
     
@@ -70,20 +60,18 @@ final class SheetViewController : UIViewController {
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpConstraints()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     
-    private func setUpConstraints() {
-        sheetView.translatesAutoresizingMaskIntoConstraints = false
-        sheetViewTopConstraint = view.bottomAnchor.constraint(equalTo: sheetView.topAnchor, constant: 0)
-        
-        NSLayoutConstraint.activate([sheetViewTopConstraint,
-                                     sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                                     sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-    }
+//    private func setUpConstraints() {
+//        sheetView.translatesAutoresizingMaskIntoConstraints = false
+//        sheetViewTopConstraint = sheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
+//
+//        NSLayoutConstraint.activate([sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//                                     sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
+//    }
     
     private (set) var trackedScrollView: UIScrollView?
     
@@ -100,32 +88,83 @@ final class SheetViewController : UIViewController {
     
     func add(toParent parentVC: UIViewController, animated: Bool, completion: (() -> Void)? = nil) {
         if parent == nil {
-            self.view.translatesAutoresizingMaskIntoConstraints = false
+            view.translatesAutoresizingMaskIntoConstraints = false
             parentVC.addChild(self)
             parentVC.view.addSubview(view)
             view.setUpConstraintsToFitToParent()
+
             parentVC.view.setNeedsLayout()
             parentVC.view.layoutIfNeeded()
             
-            self.currentPosition = contentViewController.sheetBehavior.initialPosition
+            sheetView.translatesAutoresizingMaskIntoConstraints = false
+            sheetViewTopConstraint = sheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.size.height)
+
+            NSLayoutConstraint.activate([sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                                         sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
+            
+            sheetViewTopConstraint.isActive = true
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+            
+            switch contentViewController.sheetBehavior {
+            case let .panAndSnap(configuration):
+                self.currentPosition = configuration.initialPosition
+            case .fullOrDismissed:
+                self.currentPosition = .full
+            case .fixedHeight:
+                self.currentPosition = .partialDefault
+            }
             
             if animated {
-                UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
-                                                               delay: 0,
-                                                               options: .curveEaseInOut,
-                                                               animations: {
-                                                                self.sheetViewTopConstraint.constant = self.contentViewController.sheetBehavior.topInset(for: self.currentPosition, relativeTo: self.view)
-                                                                self.view.layoutIfNeeded()
-                }, completion: { _ in
+                let snapAimator: UIViewPropertyAnimator
+                if case let .panAndSnap(configuration) = contentViewController.sheetBehavior, let animator = configuration.snapAnimator {
+                    snapAimator = animator
+                } else {
+                    snapAimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: nil)
+                }
+                
+                snapAimator.addAnimations {
+                    self.sheetViewTopConstraint.constant = self.topInset(for: self.currentPosition)
+                    self.view.layoutIfNeeded()
+                }
+                
+                snapAimator.addCompletion { _ in
                     self.didMove(toParent: parentVC)
                     completion?()
-                })
+                }
+                snapAimator.startAnimation()
+                
             } else {
-                self.sheetViewTopConstraint.constant = contentViewController.sheetBehavior.topInset(for: self.currentPosition, relativeTo: self.view)
+                self.sheetViewTopConstraint.constant = self.topInset(for: self.currentPosition)
                 self.view.layoutIfNeeded()
                 self.didMove(toParent: parentVC)
                 completion?()
             }
+        }
+    }
+    
+    func topInset(for position: SheetPosition) -> CGFloat {
+        switch contentViewController.sheetBehavior {
+        case let .panAndSnap(sheetPositionConfiguration):
+            switch position {
+            case .full:
+                return sheetPositionConfiguration.full?.topInset ?? 0
+            case .partialMax:
+                return sheetPositionConfiguration.partialMax!.topInset!
+            case .partialDefault:
+                return sheetPositionConfiguration.partialDefault!.topInset!
+            case .offScreen:
+                return sheetPositionConfiguration.offScreen?.topInset ?? view.bounds.size.height
+            }
+        case .fullOrDismissed:
+            switch position {
+            case .offScreen:
+                return view.bounds.size.height
+            case .full, .partialMax, .partialDefault:
+                return 0
+            }
+        case let .fixedHeight(height):
+            return height
         }
     }
     
@@ -136,36 +175,41 @@ final class SheetViewController : UIViewController {
                                                            delay: 0,
                                                            options: .curveEaseInOut,
                                                            animations: {
-                                                            self.sheetViewTopConstraint.constant = 0
+                                                            self.sheetViewTopConstraint.constant = self.view.bounds.height
                                                             self.view.layoutIfNeeded()
             }, completion: { _ in
                 self.view.removeFromSuperview()
                 self.removeFromParent()
-                self.delegate?.sheetViewController(self, didUpdateSheetHeight: 0)
                 completion?()
             })
         } else {
-            self.sheetViewTopConstraint.constant = 0
+            self.sheetViewTopConstraint.constant = self.view.bounds.height
             self.view.layoutIfNeeded()
             self.view.removeFromSuperview()
             self.removeFromParent()
-            self.delegate?.sheetViewController(self, didUpdateSheetHeight: 0)
             completion?()
         }
     }
     
     
     func update(sheetHeight: CGFloat, completion: (() -> Void)? = nil) {
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
-                                                       delay: 0,
-                                                       options: .curveEaseInOut,
-                                                       animations: {
-                                                        self.sheetViewTopConstraint.constant = sheetHeight
-                                                        self.view.layoutIfNeeded()
-        }, completion: { _ in
-            self.delegate?.sheetViewController(self, didUpdateSheetHeight: sheetHeight)
+        let snapAimator: UIViewPropertyAnimator
+        if case let .panAndSnap(configuration) = contentViewController.sheetBehavior, let animator = configuration.snapAnimator {
+            snapAimator = animator
+        } else {
+            snapAimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: nil)
+        }
+        snapAimator.addAnimations {
+            self.sheetViewTopConstraint.constant = sheetHeight
+            self.view.layoutIfNeeded()
+        }
+        
+        snapAimator.addCompletion { _ in
+            self.delegate?.sheetViewController(self, didUpdateSheetHeight: sheetHeight, sheetPosition: self.currentPosition)
             completion?()
-        })
+        }
+        
+        snapAimator.startAnimation()
     }
     
     private func printGestureState(gestureRecognizer: UIGestureRecognizer) {
@@ -183,6 +227,8 @@ final class SheetViewController : UIViewController {
             str = "cancelled"
         case .failed:
             str = "failed"
+        @unknown default:
+            str = "Unknown"
         }
         print(str)
     }
@@ -225,7 +271,7 @@ final class SheetViewController : UIViewController {
                         return
                     }
                     let sheetHeight = parent.view.frame.size.height - newFrameOrigin.y
-                    delegate?.sheetViewController(self, didUpdateSheetHeight: sheetHeight)
+                    delegate?.sheetViewController(self, didUpdateSheetHeight: sheetHeight, sheetPosition: self.currentPosition)
                 }
                 else {
                     // On cancellation, return the piece to its original location.
@@ -234,9 +280,6 @@ final class SheetViewController : UIViewController {
             }
         }
         else {
-            // 1. Hide if the view is below the threashold
-            // 2. Snap specific point
-            
             // Get the changes in the X and Y directions relative to
             // the superview's coordinate space.
             let translation = sheetPanGestureRecognizer.translation(in: sheet.superview)
@@ -250,23 +293,42 @@ final class SheetViewController : UIViewController {
                 // snapping
                 if sheetPanGestureRecognizer.state == .ended {
                     let velocity = gestureRecognizer.velocity(in: view)
+                    
+                    if case .fullOrDismissed = contentViewController.sheetBehavior, abs(velocity.y) > 300 {
+                        delegate?.sheetViewController(self, didUpdateSheetHeight: 0, sheetPosition: .offScreen)
+                        removeFromParent(animated: true)
+                        return
+                    }
+                    
+                    let snapAimator: UIViewPropertyAnimator
+                    if case let .panAndSnap(configuration) = contentViewController.sheetBehavior, let animator = configuration.snapAnimator {
+                        snapAimator = animator
+                    } else {
+                        snapAimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: nil)
+                    }
+                  
                     let snapFrameOrigin = calculateSnapPoint(for: newFrameOrigin, velocity: velocity)
-                    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
-                                                                   delay: 0,
-                                                                   options: .curveEaseInOut,
-                                                                   animations: {
-                                                                    //                                                                    self.sheetViewTopConstraint.constant = self.contentViewController.sheetHeight
-                                                                    sheet.frame.origin = snapFrameOrigin
-                                                                    
-                    })
+                    
+                    snapAimator.addAnimations {
+                        if case .fullOrDismissed = self.contentViewController.sheetBehavior {
+                            self.delegate?.sheetViewController(self, didUpdateSheetHeight: 0, sheetPosition: .offScreen)
+                            self.removeFromParent(animated: true)
+                            return
+                        }
+                        self.sheetViewTopConstraint.constant = snapFrameOrigin.y
+                        self.view.setNeedsLayout()
+                        self.view.layoutIfNeeded()
+                        
+                    }
+                    
+                    snapAimator.addCompletion { _ in
+                        self.delegate?.sheetViewController(self, didUpdateSheetHeight: snapFrameOrigin.y, sheetPosition: self.currentPosition)
+                    }
+                    
+                    snapAimator.startAnimation()
                 } else {
                     sheet.frame.origin = newFrameOrigin
                 }
-                guard let parent = parent else {
-                    return
-                }
-                let sheetHeight = parent.view.frame.size.height - newFrameOrigin.y
-                delegate?.sheetViewController(self, didUpdateSheetHeight: sheetHeight)
             }
             else {
                 // On cancellation, return the piece to its original location.
@@ -278,27 +340,25 @@ final class SheetViewController : UIViewController {
     
     
     /// Calculate correct snappoint based on current view origin and velocity of the pan gesture
-    ///
-    /// - Parameters:
-    ///   - origin: <#origin description#>
-    ///   - translation: <#translation description#>
-    /// - Returns: <#return value description#>
     func calculateSnapPoint(for origin: CGPoint, velocity: CGPoint) -> CGPoint {
         let velocityY = velocity.y
 
+        // If user swipes rather than panning, set the position to next or previous depends on the direction of the panning
         if abs(velocityY) > 300 {
-            let isPannedUp = velocityY < 0
-            
-            if isPannedUp {
-                currentPosition = currentPosition.next ?? .full
-            } else {
-                currentPosition = currentPosition.previous ?? .hidden
+            switch contentViewController.sheetBehavior {
+            case .panAndSnap:
+                let direction: SheetPositionDirection = (velocityY < 0) ? .up : .down
+                currentPosition = contentViewController.sheetBehavior.nextSupportedPosition(from: currentPosition, direction: direction)
+            case .fullOrDismissed:
+                currentPosition = .offScreen
+            case .fixedHeight:
+                currentPosition = .partialDefault
             }
         } else {
             // get SheetPosition based given current origin
-            currentPosition = contentViewController.sheetBehavior.position(for: origin, in: view)
+            currentPosition = contentViewController.sheetBehavior.sheetPosition(for: origin, parentView: view)
         }
-        let snapPointY = contentViewController.sheetBehavior.topInset(for: currentPosition, relativeTo: view)
+        let snapPointY = topInset(for: currentPosition)
         
         print("originY is \(origin.y), currentPosition: \(currentPosition), snapY: \(snapPointY)")
         
@@ -308,7 +368,7 @@ final class SheetViewController : UIViewController {
 
 
 
-extension SheetViewController : SheetContentNavigationControllerDelegate {
+extension SheetController : SheetContentNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: SheetContentCustomizing, animated: Bool) {
         // Intentionally empty
     }
@@ -317,10 +377,10 @@ extension SheetViewController : SheetContentNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: SheetContentCustomizing, animated: Bool) {
         view.layoutIfNeeded()
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-            self.sheetViewTopConstraint.constant = viewController.sheetBehavior.topInset(for: self.currentPosition, relativeTo: self.view)
-            self.view.layoutIfNeeded()
+//            self.sheetViewTopConstraint.constant = self.topInset(for: self.currentPosition)
+//            self.view.layoutIfNeeded()
         }, completion: { _ in
-            self.delegate?.sheetViewController(self, didUpdateSheetHeight: self.sheetViewTopConstraint.constant)
+            self.delegate?.sheetViewController(self, didUpdateSheetHeight: self.sheetViewTopConstraint.constant, sheetPosition: self.currentPosition)
         })
     }
 }
