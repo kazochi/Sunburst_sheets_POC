@@ -18,7 +18,8 @@ final class SheetView: UIView {
         
         super.init(frame: .zero)
 
-        grabberContainerView.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        backgroundColor = .white
+        grabberContainerView.backgroundColor = .clear
         grabberContainerView.addSubview(grabberView)
         
         addSubview(grabberContainerView)
@@ -26,13 +27,15 @@ final class SheetView: UIView {
         setUpConstraints()
         
         layer.cornerRadius = 10
-        layer.masksToBounds = true
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 0.1
     }
     
     
     private func setUpConstraints() {
         grabberView.translatesAutoresizingMaskIntoConstraints = false
-        let grabberWidth: CGFloat = 20
+        let grabberWidth: CGFloat = 30
         let grabberHeight: CGFloat = 5
         NSLayoutConstraint.activate([grabberView.centerYAnchor.constraint(equalTo: grabberContainerView.centerYAnchor),
                                      grabberView.centerXAnchor.constraint(equalTo: grabberContainerView.centerXAnchor),

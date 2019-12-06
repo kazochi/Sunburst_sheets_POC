@@ -9,7 +9,10 @@
 import UIKit
 
 final class BackgroundColorScrollViewController: UIViewController, SheetContentCustomizing {
-    let sheetBehavior: SheetBehavior = SheetBehavior.fullOrDismissed
+    let sheetBehavior: SheetBehavior = SheetBehavior.panAndSnapPartialMaxSheetBehavior(initialPosition: .partialDefault,
+                                                                                       partialMaxTopInset: 64.0,
+                                                                                       partialDefaultTopIOnset: CGFloat(Int.random(in: 300...500)),
+                                                                                       offScreen: nil)
 
     @IBOutlet var colorView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -26,7 +29,7 @@ final class BackgroundColorScrollViewController: UIViewController, SheetContentC
         colorView.backgroundColor = backgroundColors[navigationController!.viewControllers.count % backgroundColors.count]
     }
     
-    
+
     @IBAction func push() {
         let vc = BackgroundColorScrollViewController()
         navigationController?.pushViewController(vc, animated: true)

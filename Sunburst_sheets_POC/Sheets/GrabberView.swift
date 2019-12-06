@@ -11,7 +11,7 @@ import UIKit
 final class GrabberView : UIView {
     init() {
         super.init(frame: .zero)
-        backgroundColor = UIColor.darkGray
+        backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
     
     required init?(coder aDecoder: NSCoder) {

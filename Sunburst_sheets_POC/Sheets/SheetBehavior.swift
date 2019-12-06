@@ -66,17 +66,17 @@ enum SheetBehavior {
     }
     
     
-    static func fullSheetPositionConfiguration(initialPosition: SheetPosition,
-                                               fullTopInset: CGFloat?,
-                                               partialDefaultTopInset: CGFloat,
-                                               offScreen: CGFloat?) -> SheetBehavior {
+    static func panAndSnapFullSheetBehavior(initialPosition: SheetPosition,
+                                            fullTopInset: CGFloat?,
+                                            partialDefaultTopInset: CGFloat,
+                                            offScreen: CGFloat?) -> SheetBehavior {
         let full = PositionInfo(position: .full, topInset: fullTopInset)
         let partialDefault = PositionInfo(position: .partialDefault, topInset: partialDefaultTopInset)
         let offScreen = PositionInfo(position: .offScreen, topInset: offScreen)
         
         let configuration = SheetPositionConfiguration(initialPosition: initialPosition,
-                                          supportedPositions: Set([full, partialDefault, offScreen]),
-                                          snapAnimator: nil)
+                                                       supportedPositions: Set([full, partialDefault, offScreen]),
+                                                       snapAnimator: nil)
         return .panAndSnap(configuration)
     }
     
@@ -94,8 +94,8 @@ enum SheetBehavior {
             // 1. Sort supported positions
             // 2. calculate thereshold for each
             // 3. find where the origin falls and return correct supported position
-            let topInsetPartialMax = sheetPositionConfiguration.partialMax!.topInset ?? 64.0
-            let topInsetPartialDefault = sheetPositionConfiguration.partialDefault!.topInset ?? 462.0
+            let topInsetPartialMax = sheetPositionConfiguration.partialMax?.topInset ?? 64.0
+            let topInsetPartialDefault = sheetPositionConfiguration.partialDefault?.topInset ?? 462.0
             let topInsetHidden = parentView.bounds.size.height
             
             // Calcurate threshold

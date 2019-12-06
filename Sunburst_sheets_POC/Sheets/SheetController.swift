@@ -150,7 +150,7 @@ final class SheetController : UIViewController {
             case .full:
                 return sheetPositionConfiguration.full?.topInset ?? 0
             case .partialMax:
-                return sheetPositionConfiguration.partialMax!.topInset!
+                return sheetPositionConfiguration.partialMax?.topInset ?? 0
             case .partialDefault:
                 return sheetPositionConfiguration.partialDefault!.topInset!
             case .offScreen:
@@ -297,6 +297,7 @@ final class SheetController : UIViewController {
                     if case .fullOrDismissed = contentViewController.sheetBehavior, abs(velocity.y) > 300 {
                         delegate?.sheetViewController(self, didUpdateSheetHeight: 0, sheetPosition: .offScreen)
                         removeFromParent(animated: true)
+                        self.dismiss(animated: false, completion: nil)
                         return
                     }
                     
@@ -311,8 +312,10 @@ final class SheetController : UIViewController {
                     
                     snapAimator.addAnimations {
                         if case .fullOrDismissed = self.contentViewController.sheetBehavior {
-                            self.delegate?.sheetViewController(self, didUpdateSheetHeight: 0, sheetPosition: .offScreen)
+                            
+                            self.delegate?.sheetViewController(self, didUpdateSheetHeight: snapFrameOrigin.y, sheetPosition: self.currentPosition)
                             self.removeFromParent(animated: true)
+                            self.dismiss(animated: false, completion: nil)
                             return
                         }
                         self.sheetViewTopConstraint.constant = snapFrameOrigin.y
@@ -377,8 +380,11 @@ extension SheetController : SheetContentNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: SheetContentCustomizing, animated: Bool) {
         view.layoutIfNeeded()
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-//            self.sheetViewTopConstraint.constant = self.topInset(for: self.currentPosition)
-//            self.view.layoutIfNeeded()
+            if case let .panAndSnap(configuration) = viewController.sheetBehavior {
+                self.sheetViewTopConstraint?.constant = configuration.partialDefault?.topInset ?? 500
+                self.view.layoutIfNeeded()
+            }
+            
         }, completion: { _ in
             self.delegate?.sheetViewController(self, didUpdateSheetHeight: self.sheetViewTopConstraint.constant, sheetPosition: self.currentPosition)
         })

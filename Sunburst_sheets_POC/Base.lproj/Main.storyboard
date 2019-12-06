@@ -19,102 +19,132 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="lIp-KP-C1s" kind="relationship" relationship="rootViewController" id="j8C-5c-8ib"/>
+                        <segue destination="lIp-KP-C1s" kind="relationship" relationship="rootViewController" id="frp-tv-Zwk"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GkF-tr-uQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1930" y="-334"/>
         </scene>
-        <!--Demo Table View Controller-->
+        <!--Demo Home View Controller-->
         <scene sceneID="VZV-W7-vud">
             <objects>
-                <viewController id="lIp-KP-C1s" customClass="DemoTableViewController" customModule="Sunburst_sheets_POC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lIp-KP-C1s" customClass="DemoHomeViewController" customModule="Sunburst_sheets_POC" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="df3-xq-XNo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l8B-9Q-bZa">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vk-Xq-j8S">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="lIp-KP-C1s" id="tVb-lI-Vam"/>
-                                    <outlet property="delegate" destination="lIp-KP-C1s" id="cdj-rF-Ey9"/>
-                                </connections>
-                            </tableView>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pqX-pW-2Yp">
+                                        <rect key="frame" x="10" y="10" width="394" height="350"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1EW-18-5F3">
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="80"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0l-VU-1oF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="80"/>
+                                                        <color key="backgroundColor" red="0.74414147049516632" green="0.80070922200315098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="jxs-Sz-YgP"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <state key="normal" title="Snap - Max"/>
+                                                        <connections>
+                                                            <action selector="presentSnapMaxSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="1lc-rk-BZp"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cm1-Db-k1i">
+                                                        <rect key="frame" x="202" y="0.0" width="192" height="80"/>
+                                                        <color key="backgroundColor" red="1" green="0.76963684596090232" blue="0.61464348274225766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <state key="normal" title="Snap - Full"/>
+                                                        <connections>
+                                                            <action selector="presentSnapFullSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="Pwp-Qk-GNr"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqr-Wb-F2k">
+                                                <rect key="frame" x="0.0" y="90" width="394" height="80"/>
+                                                <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="Hik-WJ-kzR"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <state key="normal" title="Full or dismiss"/>
+                                                <connections>
+                                                    <action selector="presentfullOrDismissSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="PLO-Ir-KhH"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRM-ol-LBk">
+                                                <rect key="frame" x="0.0" y="180" width="394" height="80"/>
+                                                <color key="backgroundColor" red="0.52611095029999999" green="1" blue="0.44881975219999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="RIu-fG-3W8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <state key="normal" title="Action Sheet"/>
+                                                <connections>
+                                                    <action selector="presentActionSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="WcC-td-N9T"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oc0-Uh-0Wy">
+                                                <rect key="frame" x="0.0" y="270" width="394" height="80"/>
+                                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="Nof-e3-uHu"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <state key="normal" title="Navigation"/>
+                                                <connections>
+                                                    <action selector="presentNavigation:" destination="lIp-KP-C1s" eventType="touchUpInside" id="ayf-Re-yyz"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="1EW-18-5F3" secondAttribute="trailing" id="Xa5-sk-JC7"/>
+                                            <constraint firstItem="1EW-18-5F3" firstAttribute="leading" secondItem="pqX-pW-2Yp" secondAttribute="leading" id="lOY-bb-fdq"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="pqX-pW-2Yp" secondAttribute="bottom" id="L9U-ed-WoJ"/>
+                                    <constraint firstItem="pqX-pW-2Yp" firstAttribute="centerX" secondItem="0Vk-Xq-j8S" secondAttribute="centerX" id="TmM-f0-TQz"/>
+                                    <constraint firstItem="pqX-pW-2Yp" firstAttribute="leading" secondItem="0Vk-Xq-j8S" secondAttribute="leading" constant="10" id="Y2e-1F-Bvf"/>
+                                    <constraint firstItem="pqX-pW-2Yp" firstAttribute="top" secondItem="0Vk-Xq-j8S" secondAttribute="top" constant="10" id="pEs-Xa-ZtE"/>
+                                    <constraint firstAttribute="trailing" secondItem="pqX-pW-2Yp" secondAttribute="trailing" constant="10" id="qmf-bP-XUS"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="l8B-9Q-bZa" firstAttribute="trailing" secondItem="bPU-P3-yhE" secondAttribute="trailing" id="Lc1-vE-kX5"/>
-                            <constraint firstItem="l8B-9Q-bZa" firstAttribute="top" secondItem="bPU-P3-yhE" secondAttribute="top" id="SQ0-xh-sHy"/>
-                            <constraint firstItem="l8B-9Q-bZa" firstAttribute="bottom" secondItem="bPU-P3-yhE" secondAttribute="bottom" id="prE-Rd-D7j"/>
-                            <constraint firstItem="l8B-9Q-bZa" firstAttribute="leading" secondItem="bPU-P3-yhE" secondAttribute="leading" id="xY4-xl-vaE"/>
+                            <constraint firstItem="bPU-P3-yhE" firstAttribute="trailing" secondItem="0Vk-Xq-j8S" secondAttribute="trailing" id="PDX-PO-9K9"/>
+                            <constraint firstItem="0Vk-Xq-j8S" firstAttribute="leading" secondItem="bPU-P3-yhE" secondAttribute="leading" id="V2G-Ia-jHz"/>
+                            <constraint firstItem="0Vk-Xq-j8S" firstAttribute="top" secondItem="bPU-P3-yhE" secondAttribute="top" id="W0o-Cg-jJt"/>
+                            <constraint firstItem="0Vk-Xq-j8S" firstAttribute="top" secondItem="bPU-P3-yhE" secondAttribute="top" id="WQ8-c3-gM4"/>
+                            <constraint firstItem="bPU-P3-yhE" firstAttribute="bottom" secondItem="0Vk-Xq-j8S" secondAttribute="bottom" id="b0W-Sx-zIH"/>
+                            <constraint firstItem="0Vk-Xq-j8S" firstAttribute="leading" secondItem="bPU-P3-yhE" secondAttribute="leading" id="jNg-5i-IbS"/>
+                            <constraint firstItem="0Vk-Xq-j8S" firstAttribute="width" secondItem="df3-xq-XNo" secondAttribute="width" id="x0I-bV-N5K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bPU-P3-yhE"/>
                     </view>
                     <navigationItem key="navigationItem" id="dmv-gU-HXE"/>
                     <connections>
-                        <outlet property="tableView" destination="l8B-9Q-bZa" id="S09-3j-Xjd"/>
+                        <outlet property="actionSheetButton" destination="ZRM-ol-LBk" id="nid-4g-aZs"/>
+                        <outlet property="fullOrDismissButton" destination="eqr-Wb-F2k" id="05T-eC-L9L"/>
+                        <outlet property="scrollView" destination="0Vk-Xq-j8S" id="bej-Ab-85n"/>
+                        <outlet property="snapFullButton" destination="Cm1-Db-k1i" id="TwZ-ar-Zxn"/>
+                        <outlet property="snapMaxButton" destination="O0l-VU-1oF" id="hOk-Sv-lMi"/>
+                        <outletCollection property="coloredViews" destination="O0l-VU-1oF" collectionClass="NSMutableArray" id="Mv8-iA-4YT"/>
+                        <outletCollection property="coloredViews" destination="Cm1-Db-k1i" collectionClass="NSMutableArray" id="JBd-Bg-CQl"/>
+                        <outletCollection property="coloredViews" destination="eqr-Wb-F2k" collectionClass="NSMutableArray" id="cJf-0n-pYx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Mi-VE-JPi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1068" y="-334"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Sunburst_sheets_POC" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocP-ZS-DWF">
-                                <rect key="frame" x="184" y="652" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="buttonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Ug-ap-ljx"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <connections>
-                        <outlet property="button" destination="ocP-ZS-DWF" id="ymJ-qj-Ync"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1026" y="325"/>
-        </scene>
-        <!--Sheet Content Table View Controller-->
-        <scene sceneID="Cc9-7w-hp9">
-            <objects>
-                <tableViewController storyboardIdentifier="SheetContentTableViewController" id="Q2j-YB-imM" customClass="SheetContentTableViewController" customModule="Sunburst_sheets_POC" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qBp-OC-Za0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Qh0-vW-mAe">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qh0-vW-mAe" id="s16-R6-3ws">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Q2j-YB-imM" id="bnb-wb-Bsi"/>
-                            <outlet property="delegate" destination="Q2j-YB-imM" id="ZEi-wi-sCK"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BtP-gN-tVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
+            <point key="canvasLocation" x="-1068.1159420289855" y="-334.15178571428572"/>
         </scene>
     </scenes>
 </document>

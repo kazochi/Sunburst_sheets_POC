@@ -1,5 +1,5 @@
 //
-//  SheetTransitioningDelegatre.swift
+//  SheetTransitioningDelegatte.swift
 //  Sunburst_sheets_POC
 //
 //  Created by Kazuhito Ochiai on 12/4/19.
@@ -38,7 +38,7 @@ class SheetPresentationController: UIPresentationController {
             let sheetController = presentedViewController as? SheetController else {
                 fatalError()
         }
-        sheetController.sheetPanGestureRecognizer.isEnabled = false
+//        sheetController.sheetPanGestureRecognizer.isEnabled = false
         
         // Setting up the dimming view
         dimmingView.backgroundColor = .black
@@ -117,7 +117,7 @@ class SheetModalPresentTransition: NSObject, UIViewControllerAnimatedTransitioni
         } else {
             snapAimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: nil)
             snapAimator.addAnimations {
-                sheetController.sheetViewTopConstraint.constant = sheetController.topInset(for: .full)
+                sheetController.sheetViewTopConstraint.constant = 364
                 sheetController.view.layoutIfNeeded()
             }
         }
