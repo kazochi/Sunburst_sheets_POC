@@ -8,16 +8,17 @@
 
 import UIKit
 
-protocol SheetViewControllerDelegate: AnyObject {
+public protocol SheetViewControllerDelegate: AnyObject {
     func sheetViewController(_ sheetViewController: SheetController, didUpdateSheetHeight sheetHeight: CGFloat, sheetPosition: SheetPosition)
 }
 
 
-final class SheetController : UIViewController {
-    private(set) var currentPosition: SheetPosition = .offScreen
+public final class SheetController : UIViewController {
+    private(set) public var currentPosition: SheetPosition = .offScreen
+    weak public var delegate: SheetViewControllerDelegate?
+    
     let sheetView: SheetView
     var sheetViewTopConstraint: NSLayoutConstraint!
-    weak var delegate: SheetViewControllerDelegate?
     let sheetPanGestureRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer()
     let contentViewController: SheetContentCustomizing
     private let passThroughView: PassThroughView = PassThroughView()
@@ -25,12 +26,12 @@ final class SheetController : UIViewController {
     private var initialContentOffset: CGFloat = 0
     private let actionSheetTransitioningDelegate = SheetActionSheetTransitioningDelegate()
     
-    init(contentViewController: SheetContentCustomizing) {
+    public init(contentViewController: SheetContentCustomizing) {
         self.contentViewController = contentViewController
         sheetView = SheetView(contentView: contentViewController.view)
         
         super.init(nibName: nil, bundle: nil)
-
+        
         commonInit()
     }
     
@@ -52,7 +53,7 @@ final class SheetController : UIViewController {
     }
     
     
-    override func loadView() {
+    override public func loadView() {
         addChild(contentViewController)
         passThroughView.addSubview(sheetView)
         
@@ -60,45 +61,45 @@ final class SheetController : UIViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
+    override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
     
-//    private func setUpConstraints() {
-//        sheetView.translatesAutoresizingMaskIntoConstraints = false
-//        sheetViewTopConstraint = sheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
-//
-//        NSLayoutConstraint.activate([sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//                                     sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
-//    }
+    //    private func setUpConstraints() {
+    //        sheetView.translatesAutoresizingMaskIntoConstraints = false
+    //        sheetViewTopConstraint = sheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
+    //
+    //        NSLayoutConstraint.activate([sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    //                                     sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
+    //    }
     
     private (set) var trackedScrollView: UIScrollView?
     
-    func track(scrollView: UIScrollView) {
+    public func track(scrollView: UIScrollView) {
         trackedScrollView = scrollView
         trackedScrollView?.panGestureRecognizer.addTarget(self, action: #selector(handlePanning(gestureRecognizer:)))
     }
     
-    func untrackScrollView() {
+    public func untrackScrollView() {
         trackedScrollView?.panGestureRecognizer.removeTarget(self, action: #selector(handlePanning(gestureRecognizer:)))
         trackedScrollView = nil
     }
     
     
-    func add(toParent parentVC: UIViewController, animated: Bool, completion: (() -> Void)? = nil) {
+    public func add(toParent parentVC: UIViewController, animated: Bool, completion: (() -> Void)? = nil) {
         if parent == nil {
             view.translatesAutoresizingMaskIntoConstraints = false
             parentVC.addChild(self)
             parentVC.view.addSubview(view)
             view.setUpConstraintsToFitToParent()
-
+            
             parentVC.view.setNeedsLayout()
             parentVC.view.layoutIfNeeded()
             
             sheetView.translatesAutoresizingMaskIntoConstraints = false
             sheetViewTopConstraint = sheetView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.size.height)
-
+            
             NSLayoutConstraint.activate([sheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                          sheetView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
             
@@ -169,7 +170,7 @@ final class SheetController : UIViewController {
     }
     
     
-    func removeFromParent(animated: Bool, completion: (() -> Void)? = nil) {
+    public func removeFromParent(animated: Bool, completion: (() -> Void)? = nil) {
         if animated {
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
                                                            delay: 0,
@@ -235,8 +236,8 @@ final class SheetController : UIViewController {
     
     
     @objc private func handlePanning(gestureRecognizer: UIPanGestureRecognizer) {
-       print("velocity \(gestureRecognizer.velocity(in: view))")
-       printGestureState(gestureRecognizer: gestureRecognizer)
+        print("velocity \(gestureRecognizer.velocity(in: view))")
+        printGestureState(gestureRecognizer: gestureRecognizer)
         
         guard let sheet = sheetPanGestureRecognizer.view else {
             return
@@ -257,7 +258,7 @@ final class SheetController : UIViewController {
             }
             var scrollViewTranslation = gestureRecognizer.translation(in: scrollView.superview)
             scrollViewTranslation.y -= initialContentOffset
-
+            
             if scrollViewTranslation.y > 0 && scrollView.contentOffset.y <= 0 {
                 trackedScrollView?.bounces = false
                 
@@ -307,7 +308,7 @@ final class SheetController : UIViewController {
                     } else {
                         snapAimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut, animations: nil)
                     }
-                  
+                    
                     let snapFrameOrigin = calculateSnapPoint(for: newFrameOrigin, velocity: velocity)
                     
                     snapAimator.addAnimations {
@@ -345,7 +346,7 @@ final class SheetController : UIViewController {
     /// Calculate correct snappoint based on current view origin and velocity of the pan gesture
     func calculateSnapPoint(for origin: CGPoint, velocity: CGPoint) -> CGPoint {
         let velocityY = velocity.y
-
+        
         // If user swipes rather than panning, set the position to next or previous depends on the direction of the panning
         if abs(velocityY) > 300 {
             switch contentViewController.sheetBehavior {
@@ -375,8 +376,8 @@ extension SheetController : SheetContentNavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: SheetContentCustomizing, animated: Bool) {
         // Intentionally empty
     }
-
-
+    
+    
     func navigationController(_ navigationController: UINavigationController, didShow viewController: SheetContentCustomizing, animated: Bool) {
         view.layoutIfNeeded()
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {

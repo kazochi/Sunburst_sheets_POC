@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol SheetContentCustomizing : UIViewController {
+public protocol SheetContentCustomizing : UIViewController {
     var sheetBehavior: SheetBehavior { get }
 }

@@ -20,15 +20,15 @@ protocol SheetContentNavigationControllerDelegate : class {
 }
 
 
-class SheetContentNavigationController: UINavigationController {
+public class SheetContentNavigationController: UINavigationController {
     private let delegateProxy = NavigationControllerDelegateProxy()
     
-    override func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
     
-    override var delegate: UINavigationControllerDelegate? {
+    override public var delegate: UINavigationControllerDelegate? {
         get {
             return delegateProxy
         }
@@ -52,7 +52,7 @@ class SheetContentNavigationController: UINavigationController {
 
 
 extension SheetContentNavigationController : SheetContentCustomizing {
-    var sheetBehavior: SheetBehavior {
+    public var sheetBehavior: SheetBehavior {
         guard let topViewController = topViewController as? SheetContentCustomizing else {
             // FIXME:
             return SheetBehavior.panAndSnapPartialMaxSheetBehavior(initialPosition: .partialDefault,

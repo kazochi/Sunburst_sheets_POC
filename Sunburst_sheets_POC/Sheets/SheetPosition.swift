@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum SheetPositionDirection : Int {
+public enum SheetPositionDirection : Int {
     case up
     case down
 }
 
-enum SheetPosition : Int, CustomStringConvertible {
+public enum SheetPosition : Int, CustomStringConvertible {
     case full
     case partialMax
     case partialDefault
@@ -41,7 +41,7 @@ enum SheetPosition : Int, CustomStringConvertible {
         return sortedCases[currentIndex-1]
     }
     
-    var description: String {
+    public var description: String {
         switch self {
         case .full:
             return "full"

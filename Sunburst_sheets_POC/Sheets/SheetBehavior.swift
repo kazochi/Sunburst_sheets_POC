@@ -9,24 +9,25 @@
 import UIKit
 
 
-struct PositionInfo : Hashable {
+public struct PositionInfo : Hashable {
     let position: SheetPosition
     let topInset: CGFloat?
 }
 
-struct SheetPositionConfiguration {
-    let initialPosition: SheetPosition
-    let supportedPositions: Set<PositionInfo>
-    let snapAnimator: UIViewPropertyAnimator?
 
+public struct SheetPositionConfiguration {
+    public let initialPosition: SheetPosition
+    public let supportedPositions: Set<PositionInfo>
+    public let snapAnimator: UIViewPropertyAnimator?
+    
     let full: PositionInfo?
     let partialMax: PositionInfo?
     let partialDefault: PositionInfo?
     let offScreen: PositionInfo?
     
-    init(initialPosition: SheetPosition,
-         supportedPositions: Set<PositionInfo>,
-         snapAnimator: UIViewPropertyAnimator? = nil) {
+    public init(initialPosition: SheetPosition,
+                supportedPositions: Set<PositionInfo>,
+                snapAnimator: UIViewPropertyAnimator? = nil) {
         
         assert(supportedPositions.count > 0, "supportedPositions must contain at least one supported position")
         assert(supportedPositions.map { $0.position }.contains(initialPosition), "initial position must be inclused in the supported positions.")
@@ -45,16 +46,16 @@ struct SheetPositionConfiguration {
 // TODO:
 // Method for actionsheet presentation
 // preferred content size - KVO
-enum SheetBehavior {
+public enum SheetBehavior {
     // Ratio or Specific height
     case panAndSnap(SheetPositionConfiguration)
     case fullOrDismissed
     case fixedHeight(CGFloat)
     
-    static func panAndSnapPartialMaxSheetBehavior(initialPosition: SheetPosition,
-                                                  partialMaxTopInset: CGFloat,
-                                                  partialDefaultTopIOnset: CGFloat,
-                                                  offScreen: CGFloat?) -> SheetBehavior {
+    public static func panAndSnapPartialMaxSheetBehavior(initialPosition: SheetPosition,
+                                                         partialMaxTopInset: CGFloat,
+                                                         partialDefaultTopIOnset: CGFloat,
+                                                         offScreen: CGFloat?) -> SheetBehavior {
         
         let partialMax = PositionInfo(position: .partialMax, topInset: partialMaxTopInset)
         let partialDefault = PositionInfo(position: .partialDefault, topInset: partialDefaultTopIOnset)
@@ -66,10 +67,10 @@ enum SheetBehavior {
     }
     
     
-    static func panAndSnapFullSheetBehavior(initialPosition: SheetPosition,
-                                            fullTopInset: CGFloat?,
-                                            partialDefaultTopInset: CGFloat,
-                                            offScreen: CGFloat?) -> SheetBehavior {
+    public static func panAndSnapFullSheetBehavior(initialPosition: SheetPosition,
+                                                   fullTopInset: CGFloat?,
+                                                   partialDefaultTopInset: CGFloat,
+                                                   offScreen: CGFloat?) -> SheetBehavior {
         let full = PositionInfo(position: .full, topInset: fullTopInset)
         let partialDefault = PositionInfo(position: .partialDefault, topInset: partialDefaultTopInset)
         let offScreen = PositionInfo(position: .offScreen, topInset: offScreen)
