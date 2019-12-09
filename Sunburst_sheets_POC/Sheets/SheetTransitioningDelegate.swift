@@ -38,7 +38,6 @@ class SheetPresentationController: UIPresentationController {
             let sheetController = presentedViewController as? SheetController else {
                 fatalError()
         }
-//        sheetController.sheetPanGestureRecognizer.isEnabled = false
         
         // Setting up the dimming view
         dimmingView.backgroundColor = .black

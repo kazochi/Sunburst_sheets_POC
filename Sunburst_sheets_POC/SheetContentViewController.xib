@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SheetContentViewController" customModule="Sunburst_sheets_POC" customModuleProvider="target">
             <connections>
+                <outlet property="scrollView" destination="GrT-mc-SRG" id="U5Q-zg-1zY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="coloredViews" destination="jiA-TL-QED" collectionClass="NSMutableArray" id="3TP-MG-92z"/>
                 <outletCollection property="coloredViews" destination="k8E-rB-BqD" collectionClass="NSMutableArray" id="ZAr-QL-30y"/>

@@ -38,27 +38,27 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pqX-pW-2Yp">
-                                        <rect key="frame" x="10" y="10" width="394" height="350"/>
+                                        <rect key="frame" x="10" y="10" width="394" height="260"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1EW-18-5F3">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0l-VU-1oF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="80"/>
-                                                        <color key="backgroundColor" red="0.74414147049516632" green="0.80070922200315098" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="44"/>
+                                                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="80" id="jxs-Sz-YgP"/>
+                                                            <constraint firstAttribute="height" constant="44" id="jxs-Sz-YgP"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal" title="Snap - Max"/>
                                                         <connections>
                                                             <action selector="presentSnapMaxSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="1lc-rk-BZp"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cm1-Db-k1i">
-                                                        <rect key="frame" x="202" y="0.0" width="192" height="80"/>
-                                                        <color key="backgroundColor" red="1" green="0.76963684596090232" blue="0.61464348274225766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <rect key="frame" x="202" y="0.0" width="192" height="44"/>
+                                                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal" title="Snap - Full"/>
                                                         <connections>
                                                             <action selector="presentSnapFullSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="Pwp-Qk-GNr"/>
@@ -67,39 +67,51 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqr-Wb-F2k">
-                                                <rect key="frame" x="0.0" y="90" width="394" height="80"/>
-                                                <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="0.0" y="54" width="394" height="44"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="Hik-WJ-kzR"/>
+                                                    <constraint firstAttribute="height" constant="44" id="Hik-WJ-kzR"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Full or dismiss"/>
                                                 <connections>
                                                     <action selector="presentfullOrDismissSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="PLO-Ir-KhH"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRM-ol-LBk">
-                                                <rect key="frame" x="0.0" y="180" width="394" height="80"/>
-                                                <color key="backgroundColor" red="0.52611095029999999" green="1" blue="0.44881975219999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="0.0" y="108" width="394" height="44"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="RIu-fG-3W8"/>
+                                                    <constraint firstAttribute="height" constant="44" id="RIu-fG-3W8"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Action Sheet"/>
                                                 <connections>
                                                     <action selector="presentActionSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="WcC-td-N9T"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oc0-Uh-0Wy">
-                                                <rect key="frame" x="0.0" y="270" width="394" height="80"/>
-                                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="0.0" y="162" width="394" height="44"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="80" id="Nof-e3-uHu"/>
+                                                    <constraint firstAttribute="height" constant="44" id="Nof-e3-uHu"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <state key="normal" title="Navigation"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Resize When Navigating"/>
                                                 <connections>
                                                     <action selector="presentNavigation:" destination="lIp-KP-C1s" eventType="touchUpInside" id="ayf-Re-yyz"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="154-Sj-oaS">
+                                                <rect key="frame" x="0.0" y="216" width="394" height="44"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="5G1-rF-B9D"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <state key="normal" title="Content height"/>
+                                                <connections>
+                                                    <action selector="presentFittedContentSheet:" destination="lIp-KP-C1s" eventType="touchUpInside" id="YAK-zI-FKj"/>
                                                 </connections>
                                             </button>
                                         </subviews>

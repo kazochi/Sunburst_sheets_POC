@@ -26,7 +26,7 @@ final class SheetView: UIView {
         addSubview(contentView)
         setUpConstraints()
         
-        layer.cornerRadius = 10
+        layer.cornerRadius = 15
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowRadius = 3
         layer.shadowOpacity = 0.1

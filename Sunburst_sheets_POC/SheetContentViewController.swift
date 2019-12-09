@@ -12,11 +12,11 @@ class SheetContentViewController: UIViewController, SheetContentCustomizing {
     @IBOutlet private var coloredViews: [UIView] = []
 
     let sheetBehavior: SheetBehavior
+    @IBOutlet weak var scrollView: UIScrollView!
     
     init(sheetBehavior: SheetBehavior) {
         self.sheetBehavior = sheetBehavior
         super.init(nibName: nil, bundle: nil)
-        automaticallyAdjustsScrollViewInsets = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,6 +25,8 @@ class SheetContentViewController: UIViewController, SheetContentCustomizing {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.contentInsetAdjustmentBehavior = .never
+
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         for view in coloredViews {

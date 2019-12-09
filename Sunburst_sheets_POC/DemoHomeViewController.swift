@@ -41,6 +41,7 @@ class DemoHomeViewController: UIViewController {
             sheetController = SheetController(contentViewController: navigationController)
             sheetController!.delegate = self
             sheetController!.add(toParent: self, animated: true)
+            sheetController!.track(scrollView: childContentViewController.scrollView)
         } else {
             sheetController?.removeFromParent(animated: true)
             sheetController = nil
@@ -101,9 +102,21 @@ class DemoHomeViewController: UIViewController {
     @IBAction func presentActionSheet(_ sender: Any) {
         let sheetBehavior = SheetBehavior.fullOrDismissed
         let childContentViewController = SheetContentViewController(sheetBehavior: sheetBehavior)
-        let sheetViewController = SheetController(contentViewController: childContentViewController)
-        sheetViewController.modalPresentationStyle = .custom
-        present(sheetViewController, animated: true, completion: nil)
+        let sheetController = SheetController(contentViewController: childContentViewController)
+        sheetController.modalPresentationStyle = .custom
+        present(sheetController, animated: true, completion: nil)
+    }
+    
+    @IBAction func presentFittedContentSheet(_ sender: Any) {
+//        if sheetController?.parent == nil {
+//            let childContentViewController = DemoTableTableViewController()
+//            sheetController = SheetController(contentViewController: childContentViewController)
+//            sheetController!.delegate = self
+//            sheetController!.add(toParent: self, animated: true)
+//        } else {
+//            sheetController?.removeFromParent(animated: true)
+//            sheetController = nil
+//        }
     }
 }
 

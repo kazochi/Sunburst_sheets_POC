@@ -14,11 +14,9 @@
 		C2144F5A2384555700FA55FA /* SheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F592384555700FA55FA /* SheetController.swift */; };
 		C2144F5C2384559300FA55FA /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2144F5B2384559300FA55FA /* SheetView.swift */; };
 		C27794412383302C007F9DE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794402383302C007F9DE3 /* AppDelegate.swift */; };
-		C27794432383302C007F9DE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794422383302C007F9DE3 /* ViewController.swift */; };
 		C27794462383302C007F9DE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27794442383302C007F9DE3 /* Main.storyboard */; };
 		C27794482383302E007F9DE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27794472383302E007F9DE3 /* Assets.xcassets */; };
 		C277944B2383302E007F9DE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27794492383302E007F9DE3 /* LaunchScreen.storyboard */; };
-		C27794532383331C007F9DE3 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27794522383331C007F9DE3 /* ModalViewController.swift */; };
 		C28C38A92386EEE3006D23B4 /* BackgroundColorScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38A72386EEE3006D23B4 /* BackgroundColorScrollViewController.swift */; };
 		C28C38AA2386EEE3006D23B4 /* BackgroundColorScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C38A82386EEE3006D23B4 /* BackgroundColorScrollViewController.xib */; };
 		C28C38AC23873348006D23B4 /* SheetContentCustomizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28C38AB23873348006D23B4 /* SheetContentCustomizing.swift */; };
@@ -40,12 +38,10 @@
 		C2144F5B2384559300FA55FA /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		C277943D2383302C007F9DE3 /* Sunburst_sheets_POC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunburst_sheets_POC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27794402383302C007F9DE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C27794422383302C007F9DE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C27794452383302C007F9DE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C27794472383302E007F9DE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C277944A2383302E007F9DE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C277944C2383302E007F9DE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C27794522383331C007F9DE3 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		C28C38A72386EEE3006D23B4 /* BackgroundColorScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorScrollViewController.swift; sourceTree = "<group>"; };
 		C28C38A82386EEE3006D23B4 /* BackgroundColorScrollViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BackgroundColorScrollViewController.xib; sourceTree = "<group>"; };
 		C28C38AB23873348006D23B4 /* SheetContentCustomizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetContentCustomizing.swift; sourceTree = "<group>"; };
@@ -109,13 +105,11 @@
 				C2144F582384553800FA55FA /* Sheets */,
 				C27794402383302C007F9DE3 /* AppDelegate.swift */,
 				C206FB7B2399A54C0039BF7F /* DemoHomeViewController.swift */,
+				C27794442383302C007F9DE3 /* Main.storyboard */,
 				C2B3F9FD2399AFDA003F6A6D /* SheetContentViewController.swift */,
 				C2B3F9FE2399AFDA003F6A6D /* SheetContentViewController.xib */,
 				C28C38A72386EEE3006D23B4 /* BackgroundColorScrollViewController.swift */,
 				C28C38A82386EEE3006D23B4 /* BackgroundColorScrollViewController.xib */,
-				C27794422383302C007F9DE3 /* ViewController.swift */,
-				C27794522383331C007F9DE3 /* ModalViewController.swift */,
-				C27794442383302C007F9DE3 /* Main.storyboard */,
 				C27794472383302E007F9DE3 /* Assets.xcassets */,
 				C27794492383302E007F9DE3 /* LaunchScreen.storyboard */,
 				C277944C2383302E007F9DE3 /* Info.plist */,
@@ -197,7 +191,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2144F5A2384555700FA55FA /* SheetController.swift in Sources */,
-				C27794432383302C007F9DE3 /* ViewController.swift in Sources */,
 				C28C38B023873441006D23B4 /* NavigationControllerDelegateProxy.swift in Sources */,
 				C2144F5C2384559300FA55FA /* SheetView.swift in Sources */,
 				C2B3F9FF2399AFDA003F6A6D /* SheetContentViewController.swift in Sources */,
@@ -205,7 +198,6 @@
 				C28C38B223873485006D23B4 /* PassThroughView.swift in Sources */,
 				C2130F5C2385D56200469CF7 /* SheetContentNavigationController.swift in Sources */,
 				C206FB782395DEEF0039BF7F /* SheetBehavior.swift in Sources */,
-				C27794532383331C007F9DE3 /* ModalViewController.swift in Sources */,
 				C28C38B4238739C8006D23B4 /* GrabberView.swift in Sources */,
 				C206FB7C2399A54C0039BF7F /* DemoHomeViewController.swift in Sources */,
 				C28C38A92386EEE3006D23B4 /* BackgroundColorScrollViewController.swift in Sources */,
